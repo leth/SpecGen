@@ -128,8 +128,7 @@ class Term(object):
     return str(s)
 
   def is_external(self, vocab):
-    print "Comparing property URI ",self.uri," with vocab uri: " + vocab.uri
-    return(False)
+    return not self.uri.startswith(vocab.uri) 
 
   #def __repr__(self):
   #  return(self.__str__)
