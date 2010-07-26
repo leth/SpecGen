@@ -225,21 +225,25 @@ class Vocab(object):
 
     ##if f != None:    
     ##  self.index()
-    self.ns_list = { "http://www.w3.org/1999/02/22-rdf-syntax-ns#"   : "rdf",
-            "http://www.w3.org/2000/01/rdf-schema#"         : "rdfs",
-            "http://www.w3.org/2002/07/owl#"                : "owl",
-            "http://www.w3.org/2001/XMLSchema#"             : "xsd",
-            "http://rdfs.org/sioc/ns#"                      : "sioc",
-            "http://xmlns.com/foaf/0.1/"                    : "foaf", 
-            "http://purl.org/dc/elements/1.1/"              : "dc",
-            "http://purl.org/dc/terms/"                     : "dct",
-            "http://usefulinc.com/ns/doap#"                 : "doap",
-            "http://www.w3.org/2003/06/sw-vocab-status/ns#" : "status",
-            "http://purl.org/rss/1.0/modules/content/"      : "content", 
-            "http://www.w3.org/2003/01/geo/wgs84_pos#"      : "geo",
-            "http://www.w3.org/2004/02/skos/core#"          : "skos",
-            "http://purl.org/NET/c4dm/event.owl#"           : "event"
-          }
+    self.ns_list = {
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#"   : "rdf",
+      "http://www.w3.org/2000/01/rdf-schema#"         : "rdfs",
+      "http://www.w3.org/2002/07/owl#"                : "owl",
+      "http://www.w3.org/2001/XMLSchema#"             : "xsd",
+      "http://rdfs.org/sioc/ns#"                      : "sioc",
+      "http://xmlns.com/foaf/0.1/"                    : "foaf", 
+      "http://purl.org/dc/elements/1.1/"              : "dc",
+      "http://purl.org/dc/terms/"                     : "dct",
+      "http://usefulinc.com/ns/doap#"                 : "doap",
+      "http://www.w3.org/2003/06/sw-vocab-status/ns#" : "status",
+      "http://purl.org/rss/1.0/modules/content/"      : "content", 
+      "http://www.w3.org/2003/01/geo/wgs84_pos#"      : "geo",
+      "http://www.w3.org/2004/02/skos/core#"          : "skos",
+      "http://purl.org/NET/c4dm/event.owl#"           : "event",
+      "http://www.w3.org/2004/03/trix/rdfg-1/"        : "rdfg",
+      "http://purl.org/net/provenance/ns#"            : "prv",
+      "http://www.ontologydesignpatterns.org/ont/web/irw.owl#" : "irw",
+    }
 
 
 
