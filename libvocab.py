@@ -660,6 +660,7 @@ class VocabReport(object):
        queries = queries +"\n"+ fileStr
        sn = self.vocab.niceName(term.uri)
        s = self.termlink(s)
+       s = self.include_escaped(dn, s)
 
 	# danbri added another term.id 20010101 and removed term.status
        zz = eg % (term.id,term.uri,"rdfs:Class","Class", sn, term.label, term.comment, term.status,domainsOfClass,rangesOfClass+subClassOf+hasSubClass+classIsDefinedBy+isDisjointWith, s,term.id, term.id, term.id)
@@ -778,6 +779,7 @@ class VocabReport(object):
 
        sn = self.vocab.niceName(term.uri)
        s = self.termlink(s)
+       s = self.include_escaped(dn, s)
        
 	# danbri added another term.id 20010101
        zz = eg % (term.id, term.uri,"rdf:Property","Property", sn, term.label, term.comment,term.status,domainsOfProperty,rangesOfProperty+propertyIsDefinedBy+ifp+fp, s,term.id, term.id, term.id)
@@ -818,6 +820,18 @@ class VocabReport(object):
         result = re.sub(r"<code>%s:(\w+)<\/code>" % ns, r"<code><a href='%s\g<1>'>%s:\g<1></a></code>" % (base, ns), result )
     return result
 
+  def include_escaped(self, termdir, text):
+    includes = re.finditer(r"<include>(.*)</include>", text)
+    
+    for match in includes:
+      f = open("%s/%s.en" % (termdir, match.group(1)), "r")
+      inc = cgi.escape(f.read())
+      f.close()
+      
+      text = text[:match.start()] + inc + text[match.end():]
+  
+    return text
+    
   def htmlDocInfo( t, termdir='../docs' ):
     """Opens a file based on the term name (t) and termdir (defaults to
     current directory. Reads in the file, and returns a linkified
@@ -830,6 +844,7 @@ class VocabReport(object):
         f = open("%s/%s.en" % (termdir, t), "r")
         doc = f.read()
         doc = self.termlink(doc)
+        doc = self.include_escaped(termdir, doc)
     except: 
         return "<p>No detailed documentation for this term.</p>"
     return doc
