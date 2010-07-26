@@ -511,15 +511,14 @@ class VocabReport(object):
     # first classes, then properties
     eg = """<div class="specterm" id="term_%s" about="%s" typeof="%s">
             <h3>%s: %s</h3> 
-            <em>%s</em> - %s <br /><table style="th { float: top; }">
-	    <tr><th>Status:</th>
-	    <td><span property="vs:status" >%s</span></td></tr>
+            <p class='nav'>[<a href="#term_%s">#</a>] [<a href="#glance">&uarr; top</a>]</p>
+            <dl class='specdesc'><dt>%s</dt><dd>%s</dd></dl><table>
+       <!-- <tr><th>Status:</th>
+       <td><span property="vs:status" >%s</span></td></tr> -->
             %s
             %s
             </table>
             %s
-            <p style="float: right; font-size: small;">[<a href="#term_%s">#</a>] [<a href="http://wiki.foaf-project.org/w/term_%s">wiki</a>] <!-- %s --> [<a href="#glance">back to top</a>]</p>
-            <br/>
             </div>""" 
 
 # replace this if you want validation queries: xxx danbri
