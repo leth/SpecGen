@@ -645,6 +645,33 @@ class VocabReport(object):
        if contentStr != "":
           isDisjointWith = "%s <td> %s </td></tr>" % (startStr, contentStr)
 
+# equivalent to
+
+       isEquivalentTo = ''
+
+       qq = [
+            'SELECT ?eq ?l WHERE { <%s> <http://www.w3.org/2002/07/owl#equivalentClass> ?eq . OPTIONAL { ?eq rdfs:label ?l } . FILTER (! isBLANK(?eq)) } ' % (term.uri),
+            'SELECT ?eq ?l WHERE { ?eq <http://www.w3.org/2002/07/owl#equivalentClass> <%s> . OPTIONAL { ?eq rdfs:label ?l } . FILTER (! isBLANK(?eq)) } ' % (term.uri)
+            ]
+
+       startStr = '<tr><th>Equivalent To</th>\n' 
+       contentStr = ''
+       for (q) in qq:
+           relations = g.query(q)
+           
+           for (equivalentTo, label) in relations:
+              equiv = Term(equivalentTo)
+              
+              if (equiv.is_external(self.vocab)):
+                if (label == None):
+                  label = self.vocab.niceName(equiv.uri)
+                termStr = """<span rel="owl:equivalentClass" href="%s"><a href="%s">%s</a></span>\n""" % (equivalentTo, equivalentTo, label)
+              else:
+                termStr = """<span rel="owl:equivalentClass" href="%s"><a href="#term_%s">%s</a></span>\n""" % (equivalentTo, equiv.id, label)
+              contentStr = "%s %s" % (contentStr, termStr)
+
+       if contentStr != "":
+          isEquivalentTo = "%s <td> %s </td></tr>" % (startStr, contentStr)
 # end
 
        dn = os.path.join(self.basedir, "doc") 
