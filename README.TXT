@@ -1,9 +1,9 @@
 This is an experimental new codebase for specgen tools.
 
-It depends utterly upon rdflib. See http://rdflib.net/2.4.0/
+It depends utterly upon rdflib. See http://rdflib.net/
 
 If you're lucky, typing this is enough: 
-					easy_install -U rdflib==2.4.0
+					easy_install -U rdflib
 
 and if you have problems there, update easy_install etc with: 
 
