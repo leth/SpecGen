@@ -297,8 +297,8 @@ class Vocab(object):
     for (term, label, comment) in relations:
         p = Property(term)
 #        print "Made a property! "+str(p) + "using label: "#+str(label)
-        p.label = str(label)
-        p.comment = str(comment)
+        p.label = str(label).replace('\\n',"<br />")
+        p.comment = str(comment).replace('\\n',"<br />")
         self.terms.append(p)
         if (not str(p) in tmpproperties): 
           tmpproperties.append(str(p))
@@ -309,8 +309,8 @@ class Vocab(object):
     for (term, label, comment) in relations:
         c = Class(term)
 #        print "Made a class! "+str(p) + "using comment: "+comment
-        c.label = str(label)
-        c.comment = str(comment)
+        c.label = str(label).replace('\\n',"<br />")
+        c.comment = str(comment).replace('\\n',"<br />")
         self.terms.append(c)
         if (not str(c) in tmpclasses): 
           self.classes.append(c)
@@ -343,8 +343,8 @@ class Vocab(object):
         got = self.lookup( str(term) )
         if got==None:
           # print "Made an OWL property! "+str(p.uri) 
-          p.label = str(label)
-          p.comment = str(comment)
+          p.label = str(label).replace('\\n',"<br />")
+          p.comment = str(comment).replace('\\n',"<br />")
           self.terms.append(p)
           if (not str(p) in tmpproperties): 
             tmpproperties.append(str(p))
