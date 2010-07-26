@@ -470,12 +470,8 @@ class VocabReport(object):
 
     f = open ( self.vocab.filename, "r")
     rdfdata = f.read()
-#   print "GENERATING >>>>>>>> "
-## having the rdf in there was making it invalid
-## removed in favour of RDFa
-##    tpl = tpl % (azlist.encode("utf-8"), termlist.encode("utf-8"), rdfdata)
-    tpl = tpl % (azlist.encode("utf-8"), azlist.encode("utf-8"), termlist.encode("utf-8"))
-#    tpl = tpl % (azlist.encode("utf-8"), termlist.encode("utf-8"))
+
+    tpl = tpl % (azlist.encode("utf-8"), termlist.encode("utf-8"))
     return(tpl)
 
   def az(self):
