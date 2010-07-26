@@ -8,8 +8,8 @@
 # of any particular RDF vocabulary, this first version's main purpose is 
 # to get the FOAF spec workflow moving again. It doesn't work yet.
 # 
-# A much more literal conversion of specgen4.py to use rdflib can be 
-# found, abandoned, in the old/ directory as 'specgen4b.py'.
+# An abandoned, much more literal conversion of specgen4.py to use rdflib can be 
+# found in the archives, in the old/ directory as 'specgen4b.py'.
 #
 # 	Copyright 2008 Dan Brickley <http://danbri.org/>
 #
