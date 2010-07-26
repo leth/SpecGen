@@ -622,14 +622,20 @@ class VocabReport(object):
 
        isDisjointWith = ''
  
-       q = 'SELECT ?dj ?l WHERE { <%s> <http://www.w3.org/2002/07/owl#disjointWith> ?dj . ?dj rdfs:label ?l } ' % (term.uri)
-       relations = g.query(q)
-       startStr = '<tr><th>Disjoint With:</th>\n'
-
+       qq = [
+            'SELECT ?dj ?l WHERE { <%s> <http://www.w3.org/2002/07/owl#disjointWith> ?dj . ?dj rdfs:label ?l } ' % (term.uri),
+            'SELECT ?dj ?l WHERE { ?dj <http://www.w3.org/2002/07/owl#disjointWith> <%s> . ?dj rdfs:label ?l } ' % (term.uri)
+            ]
+           
+       startStr = '<tr><th>Disjoint With:</th>\n' 
        contentStr = ''
-       for (disjointWith, label) in relations:
-          termStr = """<span rel="owl:disjointWith" href="%s"><a href="#term_%s">%s</a></span>\n""" % (disjointWith, label, label)
-          contentStr = "%s %s" % (contentStr, termStr)
+       for (q) in qq:
+           relations = g.query(q)
+           
+           for (disjointWith, label) in relations:
+              dis = Term(disjointWith)
+              termStr = """<span rel="owl:disjointWith" href="%s"><a href="#term_%s">%s</a></span>\n""" % (disjointWith, dis.id, label)
+              contentStr = "%s %s" % (contentStr, termStr)
 
        if contentStr != "":
           isDisjointWith = "%s <td> %s </td></tr>" % (startStr, contentStr)
