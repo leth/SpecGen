@@ -694,7 +694,7 @@ class VocabReport(object):
        s = self.include_escaped(dn, s)
 
 	# danbri added another term.id 20010101 and removed term.status
-       zz = eg % (term.id,term.uri,"rdfs:Class","Class", sn, term.label, term.comment, term.status,domainsOfClass,rangesOfClass+subClassOf+hasSubClass+classIsDefinedBy+isDisjointWith, s,term.id, term.id, term.id)
+       zz = eg % (term.id,term.uri,"rdfs:Class","Class", sn, term.id, term.label, term.comment, term.status,domainsOfClass,rangesOfClass+subClassOf+hasSubClass+classIsDefinedBy+isDisjointWith+isEquivalentTo, s)
 
 ## we add to the relevant string - stable, unstable, testing or archaic
        if(term.status == "stable"):
@@ -813,7 +813,7 @@ class VocabReport(object):
        s = self.include_escaped(dn, s)
        
 	# danbri added another term.id 20010101
-       zz = eg % (term.id, term.uri,"rdf:Property","Property", sn, term.label, term.comment,term.status,domainsOfProperty,rangesOfProperty+propertyIsDefinedBy+ifp+fp, s,term.id, term.id, term.id)
+       zz = eg % (term.id, term.uri,"rdf:Property","Property", sn, term.id, term.label, term.comment,term.status,domainsOfProperty,rangesOfProperty+propertyIsDefinedBy+ifp+fp, s)
 
 ## we add to the relevant string - stable, unstable, testing or archaic
        if(term.status == "stable"):
