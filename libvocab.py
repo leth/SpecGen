@@ -244,6 +244,8 @@ class Vocab(object):
       "http://purl.org/net/provenance/ns#"            : "prv",
       "http://www.ontologydesignpatterns.org/ont/web/irw.owl#" : "irw",
     }
+    
+    self.ns_list_reverse = dict(zip(self.ns_list.values(), self.ns_list.keys()))
 
 
 
@@ -742,13 +744,20 @@ class VocabReport(object):
 
 
 # range of properties
-       q2 = 'SELECT ?d ?l WHERE {<%s> rdfs:range ?d . ?d rdfs:label ?l } ' % (term.uri)
+       q2 = 'SELECT ?d ?l WHERE {<%s> rdfs:range ?d . OPTIONAL { ?d rdfs:label ?l }} ' % (term.uri)
        relations2 = g.query(q2)
        startStr = '<tr><th>Range</th>\n'
        contentStr = ''
        for (range, label) in relations2:
           ran = Term(range)
-          termStr = """<span rel="rdfs:range" href="%s"><a href="#term_%s">%s</a></span>\n""" % (range, ran.id, label)
+          if (ran.uri.startswith(self.vocab.ns_list_reverse['xsd'])):
+            if (label == None):
+              label = re.sub(r"([A-Za-z][a-z]*)([A-Z][a-z]*)", r"\g<1> \g<2>", str(ran))
+              label = label[0].upper() + label[1:]
+            termStr = """<span rel="rdfs:range" href="%s"><a href="%s">%s (xsd:%s)</a></span>\n""" % (range, range, label, ran)
+          else:
+            termStr = """<span rel="rdfs:range" href="%s"><a href="#term_%s">%s</a></span>\n""" % (range, ran.id, label)
+            
           contentStr = "%s %s" % (contentStr, termStr)
 
        if contentStr != "":
