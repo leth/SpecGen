@@ -503,7 +503,7 @@ class VocabReport(object):
     queries = ''
     c_ids, p_ids = self.vocab.azlist()
     tl = """<div class="termlist">"""
-    tl = """%s<h3>Classes and Properties (full detail)</h3>\n<div class='termdetails'><br />\n\n""" % tl
+    tl = """%s\n<div class='termdetails'><br />\n\n""" % tl
 
 
 # danbri hack 20100101 removed: href="http://www.w3.org/2003/06/sw-vocab-status/ns#%s" pending discussion w/ libby and leigh re URIs
