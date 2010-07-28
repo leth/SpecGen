@@ -242,6 +242,7 @@ class Vocab(object):
       "http://purl.org/NET/c4dm/event.owl#"           : "event",
       "http://www.w3.org/2004/03/trix/rdfg-1/"        : "rdfg",
       "http://purl.org/net/provenance/ns#"            : "prv",
+      "http://xmlns.com/wot/0.1/"                     : "wot",
       "http://www.ontologydesignpatterns.org/ont/web/irw.owl#" : "irw",
     }
     
@@ -750,11 +751,14 @@ class VocabReport(object):
        contentStr = ''
        for (range, label) in relations2:
           ran = Term(range)
-          if (ran.uri.startswith(self.vocab.ns_list_reverse['xsd'])):
-            if (label == None):
-              label = re.sub(r"([A-Za-z][a-z]*)([A-Z][a-z]*)", r"\g<1> \g<2>", str(ran))
-              label = label[0].upper() + label[1:]
-            termStr = """<span rel="rdfs:range" href="%s"><a href="%s">%s (xsd:%s)</a></span>\n""" % (range, range, label, ran)
+          if (ran.is_external(self.vocab)):
+            if (ran.uri.startswith(self.vocab.ns_list_reverse['xsd'])):
+              if (label == None):
+                label = re.sub(r"([A-Za-z][a-z]*)([A-Z][a-z]*)", r"\g<1> \g<2>", str(ran))
+                label = label[0].upper() + label[1:]
+              termStr = """<span rel="rdfs:range" href="%s"><a href="%s">%s (xsd:%s)</a></span>\n""" % (range, range, label, ran)
+            else:
+              termStr = """<span rel="rdfs:range" href="%s"><a href="%s">%s</a></span>\n""" % (range, range, self.vocab.niceName(range))
           else:
             termStr = """<span rel="rdfs:range" href="%s"><a href="#term_%s">%s</a></span>\n""" % (range, ran.id, label)
             
