@@ -857,15 +857,13 @@ class VocabReport(object):
     return result
 
   def include_escaped(self, termdir, text):
-    includes = re.finditer(r"<include>(.*)</include>", text)
-    
-    for match in includes:
+    def replace(match):
       f = open("%s/%s.en" % (termdir, match.group(1)), "r")
-      inc = cgi.escape(f.read())
+      return cgi.escape(f.read())
       f.close()
       
-      text = text[:match.start()] + inc + text[match.end():]
-  
+    return re.sub(r"<include>(.*)</include>", replace, text)
+      
     return text
     
   def htmlDocInfo( t, termdir='../docs' ):
