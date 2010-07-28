@@ -513,7 +513,7 @@ class VocabReport(object):
             <h3>%s: %s</h3> 
             <p class='nav'>[<a href="#term_%s">#</a>] [<a href="#glance">&uarr; top</a>]</p>
             <dl class='specdesc'><dt>%s</dt><dd>%s</dd></dl><table>
-       <!-- <tr><th>Status:</th>
+       <!-- <tr><th>Status</th>
        <td><span property="vs:status" >%s</span></td></tr> -->
             %s
             %s
@@ -538,7 +538,7 @@ class VocabReport(object):
        q = 'SELECT ?d ?l WHERE {?d rdfs:domain <%s> . ?d rdfs:label ?l } ' % (term.uri)
 
        relations = g.query(q)
-       startStr = '<tr><th>Properties include:</th>\n'
+       startStr = '<tr><th>Properties include</th>\n'
 
        contentStr = ''
        for (domain, label) in relations:
@@ -555,7 +555,7 @@ class VocabReport(object):
 # class in range of
        q2 = 'SELECT ?d ?l WHERE {?d rdfs:range <%s> . ?d rdfs:label ?l } ' % (term.uri)
        relations2 = g.query(q2)
-       startStr = '<tr><th>Used with:</th>\n'
+       startStr = '<tr><th>Used with</th>\n'
 
        contentStr = ''
        for (range, label) in relations2:
@@ -627,7 +627,7 @@ class VocabReport(object):
             'SELECT ?dj ?l WHERE { ?dj <http://www.w3.org/2002/07/owl#disjointWith> <%s> . ?dj rdfs:label ?l } ' % (term.uri)
             ]
            
-       startStr = '<tr><th>Disjoint With:</th>\n' 
+       startStr = '<tr><th>Disjoint With</th>\n' 
        contentStr = ''
        for (q) in qq:
            relations = g.query(q)
@@ -729,7 +729,7 @@ class VocabReport(object):
        g = self.vocab.graph
        q = 'SELECT ?d ?l WHERE {<%s> rdfs:domain ?d . ?d rdfs:label ?l } ' % (term.uri)
        relations = g.query(q)
-       startStr = '<tr><th>Domain:</th>\n'
+       startStr = '<tr><th>Domain</th>\n'
 
        contentStr = ''
        for (domain, label) in relations:
@@ -744,7 +744,7 @@ class VocabReport(object):
 # range of properties
        q2 = 'SELECT ?d ?l WHERE {<%s> rdfs:range ?d . ?d rdfs:label ?l } ' % (term.uri)
        relations2 = g.query(q2)
-       startStr = '<tr><th>Range:</th>\n'
+       startStr = '<tr><th>Range</th>\n'
        contentStr = ''
        for (range, label) in relations2:
           ran = Term(range)
