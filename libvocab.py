@@ -727,6 +727,7 @@ class VocabReport(object):
     for term in self.vocab.properties:
        domainsOfProperty = ''
        rangesOfProperty = ''
+       inverseOfProperty = ''
 
 # domain of properties
        g = self.vocab.graph
@@ -766,6 +767,26 @@ class VocabReport(object):
 
        if contentStr != "":
           rangesOfProperty = "%s <td>%s</td>	</tr>" % (startStr, contentStr)
+
+# inverse properties
+       g = self.vocab.graph
+       qq =[
+         'SELECT ?inv ?l WHERE { <%s> <http://www.w3.org/2002/07/owl#inverseOf> ?inv . ?inv rdfs:label ?l } ' % (term.uri),
+         'SELECT ?inv ?l WHERE { ?inv <http://www.w3.org/2002/07/owl#inverseOf> <%s> . ?inv rdfs:label ?l } ' % (term.uri)
+         ]
+       
+       startStr = '<tr><th>Inverse of</th>\n'
+       contentStr = ''
+       
+       for q in qq:  
+         relations = g.query(q)
+         for (inverse, label) in relations:
+            inv = Term(inverse)
+            termStr = """<span rel="owl:inverseOf" href="%s"><a href="#term_%s">%s</a></span>\n""" % (inverse, inv.id, label)
+            contentStr = "%s %s" % (contentStr, termStr)
+
+       if contentStr != "":
+          inverseOfProperty = "%s <td>%s</td></tr>" % (startStr, contentStr)
 
 
 # is defined by
@@ -826,7 +847,7 @@ class VocabReport(object):
        s = self.include_escaped(dn, s)
        
 	# danbri added another term.id 20010101
-       zz = eg % (term.id, term.uri,"rdf:Property","Property", sn, term.id, term.label, term.comment,term.status,domainsOfProperty,rangesOfProperty+propertyIsDefinedBy+ifp+fp, s)
+       zz = eg % (term.id, term.uri,"rdf:Property","Property", sn, term.id, term.label, term.comment,term.status,domainsOfProperty,rangesOfProperty+inverseOfProperty+propertyIsDefinedBy+ifp+fp, s)
 
 ## we add to the relevant string - stable, unstable, testing or archaic
        if(term.status == "stable"):
